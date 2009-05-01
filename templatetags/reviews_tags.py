@@ -12,8 +12,9 @@ register = template.Library()
 def reviews_for_instance(context, instance):
     """
     """
-    ctype = ContentType.objects.get_for_model(instance)
-    has_rated = reviews_utils.has_rated(context.get("request"), instance)
+    request = context.get("request")
+    ctype = ContentType.objects.get_for_model(instance)    
+    has_rated = reviews_utils.has_rated(request, instance)
     reviews = reviews_utils.get_reviews_for_instance(instance)
 
     return {
@@ -21,6 +22,7 @@ def reviews_for_instance(context, instance):
         "has_rated" : has_rated,
         "content_id" : instance.id,
         "content_type_id" : ctype.id,
+        "MEDIA_URL" : context.get("MEDIA_URL")
     }
 
 @register.inclusion_tag('reviews/average_for_instance.html', takes_context=True)
