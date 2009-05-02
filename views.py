@@ -4,9 +4,9 @@ from django.core.urlresolvers import reverse
 from django.forms import ModelForm
 from django.forms.util import ErrorList
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from django.utils.translation import ugettext_lazy as _
 
 # reviews imports
 from reviews.models import Review
@@ -25,7 +25,7 @@ class ReviewAddForm(ModelForm):
         """
         # For an anonymous user the name is required. Please note that the 
         # request has to be passed explicitely to the form object (see add_form)
-        msg = "This field is required"
+        msg = _(u"This field is required")
         if self.request.user.is_anonymous():
             if self.cleaned_data.get("user_name", "") == "":
                 self._errors["user_name"] = ErrorList([msg])
