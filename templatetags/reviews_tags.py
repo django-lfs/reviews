@@ -29,7 +29,8 @@ def reviews_for_instance(context, instance):
 def average_for_instance(context, instance):
     """
     """
-    average = reviews_utils.get_average_for_instance(instance)
+    average, amount = reviews_utils.get_average_for_instance(instance)
     return {
         "average" : average,
+        "amount": amount,
     }

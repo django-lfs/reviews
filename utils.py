@@ -13,9 +13,10 @@ def get_reviews_for_instance(instance):
     return Review.objects.active().filter(content_type=ctype.id, content_id=instance.id)
 
 def get_average_for_instance(instance):
-    """Returns the average score of the given instance.
-
-    Takes only active reviews into account.
+    """Returns the average score and the amount of reviews for the given
+    instance. Takes only active reviews into account.
+    
+    Returns (average, amount)
     """
     # TODO: Check Django 1.1's aggregation
     ctype = ContentType.objects.get_for_model(instance)
