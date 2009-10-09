@@ -10,9 +10,11 @@ from django.template import RequestContext
 from django.utils.translation import ugettext_lazy as _
 
 # reviews imports
+import reviews.signals
+from reviews import utils as reviews_utils
 from reviews.models import Review
 from reviews.settings import SCORE_CHOICES
-from reviews import utils as reviews_utils
+
 
 class ReviewAddForm(ModelForm):
     """Form to add a review.
@@ -133,12 +135,15 @@ def save(request):
             new_review.user = request.user
         new_review.active = not settings.REVIEWS_IS_MODERATED
         new_review.save()
-        
+
+        # Fire up signal
+        reviews.signals.review_added.send(new_review)
+
         # Save object within session
         ctype = ContentType.objects.get_for_id(new_review.content_type_id)
-        object = ctype.get_object_for_this_type(pk=new_review.content_id)        
+        object = ctype.get_object_for_this_type(pk=new_review.content_id)
         request.session["last-rated-object"] = object
-        
+
         return HttpResponseRedirect(reverse("reviews_thank_you"))
 
 def preview(request, template_name="reviews/review_preview.html"):
