@@ -81,8 +81,13 @@
     <input type="hidden"
            name="content_id"
            value="{{content_id}}" />
-           
-    <input type="submit" 
-           value="{% trans 'Preview' %}" />
+    
+    {% if show_preview %}
+        <input type="submit" 
+               value="{% trans 'Preview' %}" />
+    {% else %}               
+        <input type="submit" 
+               value="{% trans 'Send' %}" />        
+    {% endif %}       
            
 </form>
