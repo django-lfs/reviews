@@ -61,7 +61,7 @@ msgstr "Sie habe bereits für dieses Produkt gewertet."
 
 #: templates/reviews/review_form.html:3
 msgid "Add Review"
-msgstr "Rezenison hinzufügen"
+msgstr "Bewertung hinzufügen"
 
 #: templates/reviews/review_form.html:86
 #: templates/reviews/review_preview.html:2
